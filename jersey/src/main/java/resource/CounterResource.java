@@ -36,8 +36,7 @@ public class CounterResource {
     @POST
     public Response increaseCounter()
     {
-        Counter.increaseCounter();
-        return Response.ok("Counter value increased to " + Counter.getCounter().toString()).build();
+        return Response.ok("Counter value increased to " + Counter.increaseAndGetCounter()).build();
     }
 
     @DELETE
@@ -50,8 +49,8 @@ public class CounterResource {
         catch (NumberFormatException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        Counter.decreaseCounterByValue(subtractionValue);
-        return Response.ok("Counter value decreased to " + Counter.getCounter().toString()).build();
+        return Response.ok("Counter value decreased to " +
+                Counter.decreaseAndGetCounterByValue(subtractionValue)).build();
     }
 
     @POST
@@ -63,8 +62,7 @@ public class CounterResource {
                 .filter(cookie -> cookie.getName().equals("hh-auth"))
                 .anyMatch(cookie -> cookie.getValue().length() > 10))
         {
-            Counter.clearCounter();
-            return Response.ok("Counter value reset to " + Counter.getCounter().toString()).build();
+            return Response.ok("Counter value reset to " + Counter.clearAndGetCounter()).build();
         }
         else
             return Response.status(Response.Status.UNAUTHORIZED).build();

@@ -1,22 +1,25 @@
 package counter;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Counter {
 
-    private static Integer counter = 0;
+    private static final AtomicInteger counter = new AtomicInteger(0);
 
-    public static Integer getCounter() {
-        return counter;
+    public static int getCounter() {
+        return counter.get();
     }
 
-    public static void increaseCounter() {
-        counter++;
+    public static int increaseAndGetCounter() {
+        return counter.incrementAndGet();
     }
 
-    public static void decreaseCounterByValue(Integer value) {
-        counter -= value;
+    public static int decreaseAndGetCounterByValue(int value) {
+        return counter.addAndGet(-value);
     }
 
-    public static void clearCounter() {
-        counter = 0;
+    public static int clearAndGetCounter() {
+        counter.set(0);
+        return counter.get();
     }
 }

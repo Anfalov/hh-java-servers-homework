@@ -13,8 +13,7 @@ import java.io.IOException;
 public class CounterCleanerServlet  extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Counter.clearCounter();
-        resp.getWriter().print("Counter value reset to " + Counter.getCounter().toString());
+        resp.getWriter().print("Counter value reset to " + Counter.clearAndGetCounter());
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 }

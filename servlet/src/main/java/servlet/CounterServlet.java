@@ -2,7 +2,6 @@ package servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +19,7 @@ public class CounterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Counter.increaseCounter();
-        resp.getWriter().print("Counter value increased to " + Counter.getCounter().toString());
+        resp.getWriter().print("Counter value increased to " + Counter.increaseAndGetCounter());
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
@@ -36,8 +34,8 @@ public class CounterServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        Counter.decreaseCounterByValue(subtractionValue);
-        resp.getWriter().print("Counter value decreased to " + Counter.getCounter().toString());
+        resp.getWriter().print("Counter value decreased to " +
+                Counter.decreaseAndGetCounterByValue(subtractionValue));
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 }
